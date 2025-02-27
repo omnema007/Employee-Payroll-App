@@ -1,5 +1,7 @@
 package com.springboot.employeepayrollapp.controller;
 
+import com.springboot.employeepayrollapp.dto.EmployeePayrollDTO;
+import com.springboot.employeepayrollapp.model.EmployeePayroll;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,18 +14,19 @@ public class EmployeePayrollController {
     }
 
     @GetMapping("/get/{id}")
-    public String getEmployeeById(@PathVariable int id) {
-        return "Fetching employee with ID: " + id;
+    public EmployeePayroll getEmployeeById(@PathVariable int id) {
+        EmployeePayrollDTO dto = new EmployeePayrollDTO("Lisa", 2000);
+        return new EmployeePayroll(id, dto);
     }
 
     @PostMapping("/create")
-    public String createEmployee(@RequestBody String employeeData) {
-        return "Employee Created: " + employeeData;
+    public EmployeePayroll createEmployee(@RequestBody EmployeePayrollDTO dto) {
+        return new EmployeePayroll(1, dto);
     }
 
     @PutMapping("/update")
-    public String updateEmployee(@RequestBody String employeeData) {
-        return "Employee Updated: " + employeeData;
+    public EmployeePayroll updateEmployee(@RequestBody EmployeePayrollDTO dto) {
+        return new EmployeePayroll(1, dto);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -31,4 +34,3 @@ public class EmployeePayrollController {
         return "Employee with ID " + id + " deleted.";
     }
 }
-
