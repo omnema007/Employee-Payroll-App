@@ -1,4 +1,6 @@
 package com.springboot.employeepayrollapp.controller;
+import com.springboot.employeepayrollapp.dto.EmployeePayrollDTO;
+import jakarta.validation.Valid;
 
 import com.springboot.employeepayrollapp.dto.EmployeePayrollDTO;
 import com.springboot.employeepayrollapp.model.EmployeePayroll;
@@ -16,9 +18,14 @@ public class EmployeePayrollController {
     @Autowired
     private EmployeePayrollService employeePayrollService;
 
+//    @PostMapping("/create")
+//    public EmployeePayroll createEmployee(@Valid @RequestBody EmployeePayrollDTO dto) {
+//        log.info("Received request to create employee: {}", dto);
+//        return employeePayrollService.createEmployee(dto);
+//    }
+
     @PostMapping("/create")
     public EmployeePayroll createEmployee(@Valid @RequestBody EmployeePayrollDTO dto) {
-        log.info("Received request to create employee: {}", dto);
         return employeePayrollService.createEmployee(dto);
     }
 
