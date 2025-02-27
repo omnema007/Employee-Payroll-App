@@ -32,8 +32,8 @@ public class EmployeePayrollService {
         Optional<EmployeePayroll> existingEmployee = employeePayrollRepository.findById(id);
         if (existingEmployee.isPresent()) {
             EmployeePayroll employee = existingEmployee.get();
-            employee.setName(dto.name);
-            employee.setSalary(dto.salary);
+            employee.setName(dto.getName());
+            employee.setSalary(dto.getSalary());
             return employeePayrollRepository.save(employee);
         }
         return null;
@@ -47,5 +47,3 @@ public class EmployeePayrollService {
         return "Employee not found.";
     }
 }
-
-

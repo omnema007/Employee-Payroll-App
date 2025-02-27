@@ -2,9 +2,13 @@ package com.springboot.employeepayrollapp.model;
 
 import com.springboot.employeepayrollapp.dto.EmployeePayrollDTO;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "employee_payroll")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeePayroll {
 
     @Id
@@ -13,31 +17,9 @@ public class EmployeePayroll {
     private String name;
     private double salary;
 
-    public EmployeePayroll() {}
-
     public EmployeePayroll(EmployeePayrollDTO dto) {
-        this.name = dto.name;
-        this.salary = dto.salary;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
+        this.name = dto.getName();
+        this.salary = dto.getSalary();
     }
 }
 

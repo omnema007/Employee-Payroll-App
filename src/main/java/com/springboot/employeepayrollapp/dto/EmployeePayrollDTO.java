@@ -1,12 +1,10 @@
 package com.springboot.employeepayrollapp.dto;
 
-public class EmployeePayrollDTO {
-    public String name;
-    public double salary;
+import lombok.Data;
 
-    public EmployeePayrollDTO(String name, double salary) {
-        this.name = name;
-        this.salary = salary;
-    }
+@Data
+public class EmployeePayrollDTO {
+    private String name;
+    private double salary;
 }
 
