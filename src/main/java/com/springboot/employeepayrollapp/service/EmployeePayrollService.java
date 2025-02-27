@@ -3,49 +3,48 @@ package com.springboot.employeepayrollapp.service;
 import com.springboot.employeepayrollapp.dto.EmployeePayrollDTO;
 import com.springboot.employeepayrollapp.model.EmployeePayroll;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import com.springboot.employeepayrollapp.repository.EmployeePayrollRepository;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Service
 public class EmployeePayrollService {
 
-    private final List<EmployeePayroll> employeeList = new ArrayList<>();
-    private int idCounter = 1;
+    @Autowired
+    private EmployeePayrollRepository employeePayrollRepository;
 
     public List<EmployeePayroll> getAllEmployees() {
-        return employeeList;
+        return employeePayrollRepository.findAll();
     }
 
     public EmployeePayroll getEmployeeById(int id) {
-        Optional<EmployeePayroll> employee = employeeList.stream()
-                .filter(emp -> emp.getId() == id)
-                .findFirst();
-        return employee.orElse(null);
+        return employeePayrollRepository.findById(id).orElse(null);
     }
 
     public EmployeePayroll createEmployee(EmployeePayrollDTO dto) {
-        EmployeePayroll employee = new EmployeePayroll(idCounter++, dto);
-        employeeList.add(employee);
-        return employee;
+        EmployeePayroll employee = new EmployeePayroll(dto);
+        return employeePayrollRepository.save(employee);
     }
 
     public EmployeePayroll updateEmployee(int id, EmployeePayrollDTO dto) {
-        for (EmployeePayroll employee : employeeList) {
-            if (employee.getId() == id) {
-                employeeList.remove(employee);
-                EmployeePayroll updatedEmployee = new EmployeePayroll(id, dto);
-                employeeList.add(updatedEmployee);
-                return updatedEmployee;
-            }
+        Optional<EmployeePayroll> existingEmployee = employeePayrollRepository.findById(id);
+        if (existingEmployee.isPresent()) {
+            EmployeePayroll employee = existingEmployee.get();
+            employee.setName(dto.name);
+            employee.setSalary(dto.salary);
+            return employeePayrollRepository.save(employee);
         }
         return null;
     }
 
     public String deleteEmployee(int id) {
-        boolean removed = employeeList.removeIf(emp -> emp.getId() == id);
-        return removed ? "Employee with ID " + id + " deleted." : "Employee not found.";
+        if (employeePayrollRepository.existsById(id)) {
+            employeePayrollRepository.deleteById(id);
+            return "Employee with ID " + id + " deleted.";
+        }
+        return "Employee not found.";
     }
 }
 
