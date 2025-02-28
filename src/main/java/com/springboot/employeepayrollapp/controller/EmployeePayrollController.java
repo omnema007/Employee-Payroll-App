@@ -47,6 +47,12 @@ public class EmployeePayrollController {
         log.info("Received request to delete employee with ID: {}", id);
         return employeePayrollService.deleteEmployee(id);
     }
+
+    @GetMapping("/department/{department}")
+    public List<EmployeePayroll> getEmployeesByDepartment(@PathVariable String department) {
+        log.info("Received request to fetch employees from department: {}", department);
+        return employeePayrollService.getEmployeesByDepartment(department);
+    }
 }
 
 

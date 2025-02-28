@@ -58,5 +58,10 @@ public class EmployeePayrollService {
         employeePayrollRepository.deleteById(id);
         return "Employee with ID " + id + " deleted.";
     }
+
+    public List<EmployeePayroll> getEmployeesByDepartment(String department) {
+        log.info("Fetching employees from department: {}", department);
+        return employeePayrollRepository.findEmployeesByDepartment(department);
+    }
 }
 
