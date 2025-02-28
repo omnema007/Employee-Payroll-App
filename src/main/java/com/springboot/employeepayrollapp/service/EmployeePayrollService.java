@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @Service
 public class EmployeePayrollService {
